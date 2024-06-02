@@ -81,8 +81,8 @@ pushd "$PNG_SOURCE_DIR"
         windows*)
             load_vsvars
             
-            build_sln "projects/vstudio/vstudio.sln" "Release Library|$AUTOBUILD_WIN_VSPLATFORM" "pnglibconf"
-            build_sln "projects/vstudio/vstudio.sln" "Release Library|$AUTOBUILD_WIN_VSPLATFORM" "libpng"
+            MSYS_NO_PATHCONV=1 msbuild.exe "projects/vstudio/vstudio.sln" /p:Configuration="Release Library" /p:Platform="$AUTOBUILD_WIN_VSPLATFORM" /t:pnglibconf
+            MSYS_NO_PATHCONV=1 msbuild.exe "projects/vstudio/vstudio.sln" /p:Configuration="Release Library" /p:Platform="$AUTOBUILD_WIN_VSPLATFORM" /t:libpng
             mkdir -p "$stage/lib/release"
             
             if [ "$AUTOBUILD_ADDRSIZE" = 32 ]
